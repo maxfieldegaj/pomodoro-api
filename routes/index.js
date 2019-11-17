@@ -6,10 +6,10 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: Test.first(true) });
 });
 
-router.get('/test', async (req,res,next) => {
+router.get('/drive', async (req,res,next) => {
   try {
-    const {url, action, name} = req.body;
-    const result = await driver.searchTextOnGoogle(url, action, name);
+    const {url, commands} = req.body;
+    const result = await driver.searchTextOnGoogle(url, commands);
     if(result.success) {
       res.status(200).send(result.data);
     } else {

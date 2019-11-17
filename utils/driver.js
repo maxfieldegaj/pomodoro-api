@@ -1,12 +1,22 @@
 const webdriver = require('selenium-webdriver');
 
-async function searchTextOnGoogle(url, action, name) {
+async function searchTextOnGoogle(url, commands) {
     const driver = new webdriver.Builder().forBrowser('chrome').build();
 
     try {
         await driver.get(url);
-        const button = await driver[action](webdriver.By.name(name));
-        return {success: true, data: button}
+
+        commands.map(async (command) =>  {
+            const {query, by, name, action, type} = command;
+            // TODO:
+            // create switch statement for 'types' of queries/ actions
+            try {
+                await driver[query](webdriver.By[by](name))[action]();
+            } catch(err) {
+                return {success: false, error: err}
+            }
+        })
+        return {success: true}
     } catch(err) {
         return {success: false, error: err};
     }
