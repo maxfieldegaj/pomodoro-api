@@ -7,11 +7,11 @@ async function searchTextOnGoogle(url, commands) {
         await driver.get(url);
 
         commands.map(async (command) =>  {
-            const {query, by, name, action, type} = command;
+            const {query, attribute, name, action, type} = command;
             // TODO:
             // create switch statement for 'types' of queries/ actions
             try {
-                await driver[query](webdriver.By[by](name))[action]();
+                await driver[query](webdriver.By[attribute](name))[action]();
             } catch(err) {
                 return {success: false, error: err}
             }
