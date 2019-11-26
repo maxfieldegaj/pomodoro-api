@@ -33,7 +33,7 @@ router.post('/walmart', async (req,res,next) => {
       if(result.success) {
         results.push(result.data);
       } else {
-        errors.push(result.error);
+        errors.push(`Error on ${upcs[i]}`);
       }
     }
     if(results.length) {
