@@ -4,7 +4,7 @@ async function interview() {
     const driver = new webdriver.Builder().forBrowser('chrome').build();
 
     try {
-        await driver.get('https://dknhy7rc6qezw.cloudfront.net/#/');
+        await driver.get('http://localhost:3000/#/');
         // landing
         const nameInput = await driver.findElement(webdriver.By.name('name'));
         await nameInput.sendKeys('Test', webdriver.Key.ENTER);
