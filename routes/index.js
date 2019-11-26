@@ -31,9 +31,9 @@ router.post('/walmart', async (req,res,next) => {
     for(let i = 0; i < upcs.length; i++) {
       const result = await walmart.getPrice(upcs[i]);
       if(result.success) {
-        results.push(result);
+        results.push(result.data);
       } else {
-        errors.push(result);
+        errors.push(result.error);
       }
     }
     if(results.length) {
