@@ -24,9 +24,10 @@ router.get('/drive', async (req,res,next) => {
 
 router.post('/walmart', async (req,res,next) => {
   try {
-    const {product} = req.body;
-    const result = await walmart.getPrice(product);
+    const {upc} = req.body;
+    const result = await walmart.getPrice(upc);
     if(result.success) {
+      console.log(result);
       res.status(200).send(result.data);
     } else {
       res.status(500).send(result.error);
