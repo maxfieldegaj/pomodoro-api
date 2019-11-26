@@ -11,11 +11,12 @@ async function getPrice(upc) {
         let price = await findFirstOfClass('price display-inline-block arrange-fit');
         price = await price.getText();
         const data = {title, price};
+        await driver.quit();
         return {success: true, data};
     }
     catch (err) {
         // uncomment the following if you don't want the window to remain open
-        // driver.quit()
+        await driver.quit();
         console.error(err);
         return {success: false, error: err}
     }

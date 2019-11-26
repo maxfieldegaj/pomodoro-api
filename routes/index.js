@@ -24,13 +24,22 @@ router.get('/drive', async (req,res,next) => {
 
 router.post('/walmart', async (req,res,next) => {
   try {
-    const {upc} = req.body;
-    const result = await walmart.getPrice(upc);
-    if(result.success) {
-      console.log(result);
-      res.status(200).send(result.data);
+    const {upcs} = req.body;
+    const results = [];
+    const errors = [];
+    
+    for(let i = 0; i < upcs.length; i++) {
+      const result = await walmart.getPrice(upcs[i]);
+      if(result.success) {
+        results.push(result);
+      } else {
+        errors.push(result);
+      }
+    }
+    if(results.length) {
+      res.status(200).send({results, errors});
     } else {
-      res.status(500).send(result.error);
+      res.status(500).send("Something went wrong");
       console.error(error);
     }
   } catch (error) {
